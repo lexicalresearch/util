@@ -21,6 +21,10 @@ public class LexicalIO {
 	 *
 	 * @param name the system-dependent file name.
 	 * 
+	 * @return a new buffered writer with UTF-8 encoding
+	 * 
+	 * @throws FileNotFoundException if an I/O error occurs opening the file
+	 * 
 	 * @see java.nio.charset.CharsetDecoder
 	 * @see java.nio.charset.StandardCharsets#UTF_8
 	 * @see java.nio.charset.CodingErrorAction#REPLACE
@@ -36,6 +40,10 @@ public class LexicalIO {
 	 *
 	 * @param name the system-dependent file name.
 	 * 
+	 * @return a new buffered reader with UTF-8 encoding
+	 * 
+	 * @throws FileNotFoundException if an I/O error occurs opening the file
+	 * 
 	 * @see java.nio.charset.CharsetEncoder
 	 * @see java.nio.charset.StandardCharsets#UTF_8
 	 * @see java.nio.charset.CodingErrorAction#REPLACE
@@ -43,5 +51,9 @@ public class LexicalIO {
 	public static BufferedReader newBufferedReader(String name) throws FileNotFoundException {
 		return new BufferedReader(new InputStreamReader(new FileInputStream(name),
 				StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPLACE)));
+	}
+
+	private LexicalIO() {
+
 	}
 }
