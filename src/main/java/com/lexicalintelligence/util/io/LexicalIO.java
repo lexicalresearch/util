@@ -25,8 +25,8 @@ public class LexicalIO {
 	 * @see java.nio.charset.StandardCharsets#UTF_8
 	 * @see java.nio.charset.CodingErrorAction#REPLACE
 	 */
-	public static BufferedWriter newBufferedWriter(String file) throws FileNotFoundException {
-		return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8.newEncoder()
+	public static BufferedWriter newBufferedWriter(String name) throws FileNotFoundException {
+		return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(name), StandardCharsets.UTF_8.newEncoder()
 				.onMalformedInput(CodingErrorAction.REPLACE).onUnmappableCharacter(CodingErrorAction.REPLACE)));
 	}
 
