@@ -10,58 +10,59 @@ group = 'com.lexicalintelligence.util'
 
 java {	
 	withJavadocJar()
-    withSourcesJar()
-	
+	withSourcesJar()
 	sourceCompatibility = JavaVersion.VERSION_14
 	targetCompatibility = JavaVersion.VERSION_14
 }
 
-publishing {
-	publications {
-		maven(MavenPublication) {
-			groupId = 'com.lexicalintelligence.util'
-			artifactId = 'util'
-			version = '0.0.0-SNAPSHOT'
+if (project.hasProperty('sonatypeUsername')) {
+	publishing {
+		publications {
+			maven(MavenPublication) {
+				groupId = 'com.lexicalintelligence.util'
+				artifactId = 'util'
+				version = '0.0.0-SNAPSHOT'
 
-			from components.java
-		}
-		mavenJava(MavenPublication) {
-            pom {
-                name = 'Lexical Utils'
-				description = 'Miscellaneous utility classes'
-				url = 'https://lexicalintelligence.com'
-				licenses {
-					license {
-						name = 'The Apache License, Version 2.0'
-						url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+				from components.java
+			}
+			mavenJava(MavenPublication) {
+				pom {
+					name = 'Lexical Utils'
+					description = 'Miscellaneous utility classes'
+					url = 'https://lexicalintelligence.com'
+					licenses {
+						license {
+							name = 'The Apache License, Version 2.0'
+							url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+						}
 					}
-				}
-				developers {
-                    developer {
-						id = 'kbaker'
-						name = 'Kirk Baker'
-						email = 'kirk.baker@lexicalintelligence.com'
+					developers {
+						developer {
+							id = 'kbaker'
+							name = 'Kirk Baker'
+							email = 'kirk.baker@lexicalintelligence.com'
+						}
 					}
-				}
-                scm {
-					connection = 'git@github.com:lexicalresearch/util.git'
-					developerConnection = 'git@github.com:lexicalresearch/util.git'
-					url = 'https://github.com/lexicalresearch/util'
+					scm {
+						connection = 'git@github.com:lexicalresearch/util.git'
+						developerConnection = 'git@github.com:lexicalresearch/util.git'
+						url = 'https://github.com/lexicalresearch/util'
+					}
 				}
 			}
 		}
+		repositories {
+			maven {
+				def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+				def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+				url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+				credentials {
+					username = "${sonatypeUsername}"
+					password = "${sonatypePassword}"
+				}
+			}
+		}		
 	}
-	repositories {
-		maven {
-			def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-			def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-			url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-			credentials {
-				username = "${sonatypeUsername}"
-				password = "${sonatypePassword}"
-			}
-		}
-	}		
 }
 
 defaultTasks 'build'
