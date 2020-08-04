@@ -25,7 +25,7 @@ public class LexicalIO {
 	 * 
 	 * @throws FileNotFoundException if an I/O error occurs opening the file
 	 * 
-	 * @see java.nio.charset.CharsetDecoder
+	 * @see java.nio.charset.CharsetEncoder
 	 * @see java.nio.charset.StandardCharsets#UTF_8
 	 * @see java.nio.charset.CodingErrorAction#REPLACE
 	 */
@@ -44,7 +44,7 @@ public class LexicalIO {
 	 * 
 	 * @throws FileNotFoundException if an I/O error occurs opening the file
 	 * 
-	 * @see java.nio.charset.CharsetEncoder
+	 * @see java.nio.charset.CharsetDecoder
 	 * @see java.nio.charset.StandardCharsets#UTF_8
 	 * @see java.nio.charset.CodingErrorAction#REPLACE
 	 */
