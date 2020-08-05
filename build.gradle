@@ -5,7 +5,7 @@ plugins {
 }
 
 archivesBaseName = 'lexicalutils'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 group = 'com.lexicalintelligence.util'	
 
 java {	
@@ -19,9 +19,9 @@ if (project.hasProperty('sonatypeUsername')) {
 	publishing {
 		publications {
 			maven(MavenPublication) {
-				groupId = 'com.lexicalintelligence.util'
+				groupId = "${group}"
 				artifactId = 'util'
-				version = '0.0.1-SNAPSHOT'
+				version = "${version}"
 
 				from components.java
 			}
