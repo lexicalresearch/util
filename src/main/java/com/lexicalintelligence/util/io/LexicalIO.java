@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.CodingErrorAction;
@@ -62,16 +63,25 @@ public class LexicalIO {
 		if (name.endsWith(".gz")) {
 			return newGzipBufferedReader(name);
 		}
-		return new BufferedReader(new InputStreamReader(new FileInputStream(name),
+		return newBufferedReader(new FileInputStream(name));
+	}
+
+	public static BufferedReader newBufferedReader(InputStream is) {
+		return new BufferedReader(new InputStreamReader(is,
 				StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPLACE)));
 	}
 
-	private static BufferedReader newGzipBufferedReader(String name) throws IOException {
-		return new BufferedReader(new InputStreamReader(new GZIPInputStream(new FileInputStream(name)),
+	public static BufferedReader newGzipBufferedReader(String name) throws IOException {
+		return newGzipBufferedReader(new FileInputStream(name));
+	}
+
+	public static BufferedReader newGzipBufferedReader(InputStream is) throws IOException {
+		return new BufferedReader(new InputStreamReader(new GZIPInputStream(is),
 				StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPLACE)));
 	}
 
 	private LexicalIO() {
 
 	}
+
 }
