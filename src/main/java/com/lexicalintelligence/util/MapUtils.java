@@ -6,21 +6,18 @@ import java.util.Map;
 
 public class MapUtils {
 
-	public static boolean getBoolean(Map<String, Object> doc, String key) {
+	public static Boolean getBoolean(Map<String, Object> doc, String key) {
 		Object val = doc.get(key);
 		if (!validate(val)) {
-			return false;
-		}
-		if (val instanceof Boolean) {
-			return (Boolean) val;
+			return null;
 		}
 		if (val instanceof String) {
-			return Boolean.valueOf((String) val);
+			return BooleanUtils.valueOf((String) val);
 		}
 		if (val instanceof Integer) {
-			return 1 == (int) val;
+			return BooleanUtils.valueOf((Integer) val);
 		}
-		return (boolean) val;
+		return (Boolean) val;
 	}
 
 	public static Integer getInteger(Map<String, Object> doc, String key) {
