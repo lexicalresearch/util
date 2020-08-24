@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Counter<K> implements Iterable<Map.Entry<K, Integer>> {
+public class Counter<K> implements Comparable<Counter<K>>, Iterable<Map.Entry<K, Integer>> {
 	private Map<K, Integer> data = new ValueSortedMap<>();
 
 	public Counter() {
@@ -103,5 +103,27 @@ public class Counter<K> implements Iterable<Map.Entry<K, Integer>> {
 	@Override
 	public String toString() {
 		return data.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		return data == null ? 0 : data.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		Counter<?> other = (Counter<?>) obj;
+		return data.equals(other.data);
+	}
+
+	@Override
+	public int compareTo(Counter<K> other) {
+		return Integer.compare(sum(), other.sum());
 	}
 }
