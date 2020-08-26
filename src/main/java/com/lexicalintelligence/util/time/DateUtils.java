@@ -21,6 +21,15 @@ public class DateUtils {
 	 * @return the earlier of {@code a} and {@code b}.
 	 */
 	public static final LocalDate min(Date a, LocalDate b) {
+		if (a == null && b == null) {
+			return null;
+		}
+		if (a == null) {
+			return b;
+		}
+		if (b == null) {
+			return toLocalDate(a);
+		}
 		LocalDate c = toLocalDate(a);
 		return c.isBefore(b) ? c : b;
 	}
@@ -34,6 +43,15 @@ public class DateUtils {
 	 * @return the earlier of {@code a} and {@code b}.
 	 */
 	public static final LocalDate min(LocalDate a, Date b) {
+		if (a == null && b == null) {
+			return null;
+		}
+		if (a == null) {
+			return toLocalDate(b);
+		}
+		if (b == null) {
+			return a;
+		}
 		LocalDate c = toLocalDate(b);
 		return a.isBefore(c) ? a : c;
 	}
@@ -46,6 +64,15 @@ public class DateUtils {
 	 * @return the earlier of {@code a} and {@code b}.
 	 */
 	public static final LocalDate min(LocalDate a, LocalDate b) {
+		if (a == null && b == null) {
+			return null;
+		}
+		if (a == null) {
+			return b;
+		}
+		if (b == null) {
+			return a;
+		}
 		return a.isBefore(b) ? a : b;
 	}
 
@@ -58,6 +85,15 @@ public class DateUtils {
 	 */
 
 	public static final LocalDate max(LocalDate a, LocalDate b) {
+		if (a == null && b == null) {
+			return null;
+		}
+		if (a == null) {
+			return b;
+		}
+		if (b == null) {
+			return a;
+		}
 		return a.isAfter(b) ? a : b;
 	}
 
@@ -69,6 +105,15 @@ public class DateUtils {
 	 * @return the earlier of {@code a} and {@code b}.
 	 */
 	public static final Date min(Date a, Date b) {
+		if (a == null && b == null) {
+			return null;
+		}
+		if (a == null) {
+			return b;
+		}
+		if (b == null) {
+			return a;
+		}
 		return a.before(b) ? a : b;
 	}
 
@@ -81,6 +126,15 @@ public class DateUtils {
 	 */
 
 	public static final Date max(Date a, Date b) {
+		if (a == null && b == null) {
+			return null;
+		}
+		if (a == null) {
+			return b;
+		}
+		if (b == null) {
+			return a;
+		}
 		return a.after(b) ? a : b;
 	}
 
@@ -92,6 +146,9 @@ public class DateUtils {
 	 * @return date
 	 */
 	public static final Date toDate(LocalDate localDate) {
+		if (localDate == null) {
+			return null;
+		}
 		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 
@@ -103,6 +160,9 @@ public class DateUtils {
 	 * @return local date
 	 */
 	public static final LocalDate toLocalDate(Date date) {
+		if (date == null) {
+			return null;
+		}
 		return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 }

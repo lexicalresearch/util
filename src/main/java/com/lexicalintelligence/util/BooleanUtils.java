@@ -42,6 +42,10 @@ public class BooleanUtils {
 	 * @return the {@code Boolean} value represented by the string
 	 */
 	public static final Boolean valueOf(String s) {
+		if (s == null || (s = s.trim()).isEmpty()) {
+			return Boolean.FALSE;
+		}
+
 		if ("1".equals(s) || "Yes".equalsIgnoreCase(s)) {
 			return true;
 		}
