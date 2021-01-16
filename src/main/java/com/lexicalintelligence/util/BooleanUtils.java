@@ -45,10 +45,35 @@ public class BooleanUtils {
 		if (s == null || (s = s.trim()).isEmpty()) {
 			return Boolean.FALSE;
 		}
-
 		if ("1".equals(s) || "Yes".equalsIgnoreCase(s)) {
 			return true;
 		}
 		return Boolean.valueOf(s);
+	}
+
+	/**
+	 * Returns a {@code Boolean} with a true value if and only if it satisfies one
+	 * of the following criteria.
+	 * 
+	 * <ul>
+	 * <li>the argument is an {@code Integer} and BooleanUtils#valueOf(Integer)
+	 * returns a true value
+	 * <li>the argument is a {@code String} and BooleanUtils#valueOf(String) returns
+	 * a true value
+	 * </ul>
+	 *
+	 * @param o an object
+	 * 
+	 * @return the {@code Boolean} value represented by the object
+	 */
+	public static final Boolean valueOf(Object o) {
+		if (o == null) {
+			return Boolean.FALSE;
+		} else if (o instanceof Integer) {
+			return valueOf((Integer) o);
+		} else if (o instanceof String) {
+			return valueOf((String) o);
+		}
+		return Boolean.FALSE;
 	}
 }
