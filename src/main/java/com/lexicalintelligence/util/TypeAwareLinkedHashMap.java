@@ -10,6 +10,11 @@ public class TypeAwareLinkedHashMap extends LinkedHashMap<String, Object> {
 		return MapUtils.getBoolean(this, key);
 	}
 
+	public Boolean getBoolean(String key, Boolean defaultValue) {
+		Boolean val = getBoolean(key);
+		return val == null ? defaultValue : val;
+	}
+
 	public Double getDouble(String key) {
 		return MapUtils.getDouble(this, key);
 	}
@@ -38,9 +43,16 @@ public class TypeAwareLinkedHashMap extends LinkedHashMap<String, Object> {
 		return MapUtils.getObject(this, key);
 	}
 
+	public Object get(String key) {
+		return MapUtils.getObject(this, key);
+	}
+
 	@Override
 	public Object put(String key, Object value) {
-		return MapUtils.put(this, key, value);
+		if (MapUtils.validate(value)) {
+			return super.put(key, value);
+		}
+		return null;
 	}
 
 	public static void main(String[] args) {
