@@ -2,9 +2,33 @@ package com.lexicalintelligence.util;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 
 public class MapUtils {
+	public static <K, V extends Comparable<V>> V max(Map<K, V> map) {
+		if (map == null) {
+			return null;
+		}
+		return map.values().stream().max(new Comparator<V>() {
+			@Override
+			public int compare(V a, V b) {
+				return a.compareTo(b);
+			}
+		}).orElse(null);
+	}
+
+	public static <K, V extends Comparable<V>> V min(Map<K, V> map) {
+		if (map == null) {
+			return null;
+		}
+		return map.values().stream().min(new Comparator<V>() {
+			@Override
+			public int compare(V a, V b) {
+				return a.compareTo(b);
+			}
+		}).orElse(null);
+	}
 
 	public static Boolean getBoolean(Map<String, Object> map, String key) {
 		Object val = getObject(map, key);
@@ -31,6 +55,17 @@ public class MapUtils {
 		return Integer.valueOf((String) val);
 	}
 
+	public static Double getDouble(Map<String, Object> map, String key) {
+		Object val = getObject(map, key);
+		if (!validate(val)) {
+			return null;
+		}
+		if (val instanceof Double) {
+			return (Double) val;
+		}
+		return Double.valueOf((String) val);
+	}
+
 	public static String getString(Map<String, Object> map, String key) {
 		Object val = getObject(map, key);
 		if (!validate(val)) {
@@ -49,6 +84,12 @@ public class MapUtils {
 	public static Collection<Integer> getIntegers(Map<String, Object> map, String key) {
 		Object val = getObject(map, key);
 		return val != null ? (Collection<Integer>) val : Collections.emptyList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static Collection<Double> getDoubles(Map<String, Object> map, String key) {
+		Object val = getObject(map, key);
+		return val != null ? (Collection<Double>) val : Collections.emptyList();
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -95,9 +136,10 @@ public class MapUtils {
 		return val;
 	}
 
-	public static void put(Map<String, Object> doc, String key, Object value) {
+	public static Object put(Map<String, Object> map, String key, Object value) {
 		if (validate(value)) {
-			doc.put(key, value);
+			return map.put(key, value);
 		}
+		return null;
 	}
 }
