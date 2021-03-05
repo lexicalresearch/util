@@ -27,6 +27,10 @@ public class TypeAwareLinkedHashMap extends LinkedHashMap<String, Object> {
 		return MapUtils.getInteger(this, key);
 	}
 
+	public Integer getInteger(String key, int defaultValue) {
+		return MapUtils.getInteger(this, key, defaultValue);
+	}
+
 	public Collection<Integer> getIntegers(String key) {
 		return MapUtils.getIntegers(this, key);
 	}
@@ -53,16 +57,5 @@ public class TypeAwareLinkedHashMap extends LinkedHashMap<String, Object> {
 			return super.put(key, value);
 		}
 		return null;
-	}
-
-	public static void main(String[] args) {
-		var m = new TypeAwareLinkedHashMap();
-		var n = new TypeAwareLinkedHashMap();
-		n.put("b", "okay");
-		m.put("a", n);
-
-		System.out.println(m);
-
-		System.out.println(m.getString("a.b"));
 	}
 }

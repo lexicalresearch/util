@@ -5,7 +5,7 @@ plugins {
 }
 
 archivesBaseName = 'lexicalutils'
-version = '0.0.19-SNAPSHOT'
+version = '0.0.20-SNAPSHOT'
 group = 'com.lexicalintelligence.util'	
 
 java {	

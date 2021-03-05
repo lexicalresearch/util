@@ -59,6 +59,17 @@ public class MapUtils {
 		return Integer.valueOf((String) val);
 	}
 
+	public static Integer getInteger(Map<String, Object> map, String key, int defaultValue) {
+		Object val = getObject(map, key);
+		if (!validate(val)) {
+			return defaultValue;
+		}
+		if (val instanceof Integer) {
+			return (Integer) val;
+		}
+		return Integer.valueOf((String) val);
+	}
+
 	public static Date getDate(Map<String, Object> map, String key) {
 		Object val = getObject(map, key);
 		if (!validate(val)) {
