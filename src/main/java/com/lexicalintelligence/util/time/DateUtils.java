@@ -2,6 +2,7 @@ package com.lexicalintelligence.util.time;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
@@ -139,6 +140,34 @@ public class DateUtils {
 	}
 
 	/**
+	 * Converts a {@code LocalDate} argument to a {@code LocalDateTime} object using
+	 * system defaults
+	 * 
+	 * @param date local date to convert
+	 * @return date time
+	 */
+	public static LocalDateTime toLocalDateTime(LocalDate date) {
+		if (date == null) {
+			return null;
+		}
+		return date.atStartOfDay();
+	}
+
+	/**
+	 * Converts a {@code Date} argument to a {@code LocalDateTime} object using
+	 * system defaults
+	 * 
+	 * @param date date to convert
+	 * @return date time
+	 */
+	public static LocalDateTime toLocalDateTime(Date date) {
+		if (date == null) {
+			return null;
+		}
+		return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
+	}
+
+	/**
 	 * Converts a {@code LocalDate} argument to a {@code Date} object using system
 	 * defaults
 	 * 
@@ -150,6 +179,20 @@ public class DateUtils {
 			return null;
 		}
 		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+
+	/**
+	 * Converts a {@code LocalDate} argument to a {@code Date} object using system
+	 * defaults
+	 * 
+	 * @param localDate local date to convert
+	 * @return date
+	 */
+	public static final Date toDate(LocalDateTime localDate) {
+		if (localDate == null) {
+			return null;
+		}
+		return Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 	/**

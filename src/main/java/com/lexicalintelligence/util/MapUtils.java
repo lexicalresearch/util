@@ -1,9 +1,13 @@
 package com.lexicalintelligence.util;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Map;
+
+import com.lexicalintelligence.util.time.DateUtils;
 
 public class MapUtils {
 	public static <K, V extends Comparable<V>> V max(Map<K, V> map) {
@@ -53,6 +57,19 @@ public class MapUtils {
 			return (Integer) val;
 		}
 		return Integer.valueOf((String) val);
+	}
+
+	public static Date getDate(Map<String, Object> map, String key) {
+		Object val = getObject(map, key);
+		if (!validate(val)) {
+			return null;
+		}
+		if (val instanceof Date) {
+			return (Date) val;
+		} else if (val instanceof LocalDate) {
+			return DateUtils.toDate((LocalDate) val);
+		}
+		throw new IllegalArgumentException(val.getClass() + " cannot be converted to java.util.Date");
 	}
 
 	public static Double getDouble(Map<String, Object> map, String key) {
