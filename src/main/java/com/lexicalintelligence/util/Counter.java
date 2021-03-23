@@ -72,6 +72,14 @@ public class Counter<K> implements Comparable<Counter<K>>, Iterable<Map.Entry<K,
 		return data.values().stream().min(Integer::compare).get();
 	}
 
+	@SuppressWarnings("unchecked")
+	public K maxKey() {
+		if (data.isEmpty()) {
+			return null;
+		}
+		return (K) data.entrySet().stream().findFirst().get().getValue();
+	}
+
 	public int max() {
 		if (data.isEmpty()) {
 			return 0;
